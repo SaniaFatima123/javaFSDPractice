@@ -27,7 +27,6 @@ public class UserServiceImpl implements IUserService {
         return repository.save(user);
     }
 
-
     @Override
     public User findByUserId(String userId) {
         User user = repository.findById(userId).orElseThrow(() -> new UserNotFoundException("user with id " + userId + " is not found."));
