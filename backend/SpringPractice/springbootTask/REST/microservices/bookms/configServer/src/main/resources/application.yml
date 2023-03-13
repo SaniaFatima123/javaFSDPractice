@@ -1,0 +1,22 @@
+#it is similar to application.properties file but better way of writing configuration
+server:
+  port: 8383
+spring:
+  application:
+    name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/SaniaFatima123/config-server
+          clone-on-start: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+

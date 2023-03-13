@@ -1,0 +1,66 @@
+#it is similar to application.properties file but better way of writing configuration
+server:
+  port: 8585
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/userDB
+    username: root
+    password: Sania@123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  application:
+    name: USER-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8383
+hibernate:
+  format_sql: true
+
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: always
+
+
+
+resilience4j:
+  circuitbreaker:
+   instances:
+     userRatingBookCircuit:
+       registerHealthIndicator: true
+       eventConsumerBufferSize: 10
+       failureRateThreshold: 50
+       minimumNumberOfCalls: 5
+       automaticTransitionFromOpenToHalfOpenEnabled: true
+       waitDurationInOpenState: 6s
+       permittedNumberOfCallsInHalfOpenState: 3
+       slidingWindowSize: 10
+       slidingWindowType: COUNT_BASED
+
+
+
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    serviceUrl:
+#     defaultZone: http://localhost:9000/eureka/
+
+
